@@ -5,9 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
+use App\Models\Category;
+use GuzzleHttp\Psr7\Request;
 
 class PostController extends Controller
 {
+    protected $post;
+    public function __construct(Post $post)
+    {
+        $this->post = $post;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -16,6 +23,13 @@ class PostController extends Controller
     public function index()
     {
         //
+        //$data = $this->post::latest()->get();
+        //$data = $this->post::with('user:id,name')->latest()->paginate(15);
+        $data = $this->post::with('user:id,name')->latest()->approved()->paginate(15);
+        //
+        return view('index',[
+            'posts' => $data,
+        ]);
     }
 
     /**
@@ -45,9 +59,12 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show($id)
     {
         //
+        $p = $this->post::findOrFail($id);
+        //
+        return view('post.show',compact('p'));
     }
 
     /**
@@ -82,5 +99,20 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         //
+    }
+    //
+    public function getByCat($id)
+    {
+        //
+        $posts = $this->post::with('user:id,name')->whereCategorieId($id)->approved()->paginate(15);
+        //
+        return view('index',compact('posts'));
+
+    }
+    //
+    public function search(Request $r)
+    {
+        # code...
+        $r =    $this->post->where('body','LIKE','%',$r->keyWords,'%')->with('user:id,name')->approved()->paginate(15);
     }
 }

@@ -22,7 +22,7 @@
             </div>
         </li>
     </ul>
-    <form action="POST">
+    <form action="POST" action="{{ route('search') }}">
         <div class="input-group">
             <button class="fa-solid fa-magnifying-glass input-group-text fs-5 rounded-0  rounded-end"
                 type="submit"></button>

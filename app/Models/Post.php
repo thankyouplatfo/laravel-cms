@@ -27,5 +27,15 @@ class Post extends Model
         return $this->hasMany(Comment::class);
     }
     //
-    
+    public function scopeApproved($q)
+    {
+        # code...
+        return $q->whereApproved(true);
+    }
+    //
+    public function getImagePathAtteribute($image)
+    {
+        # code...
+        //return asset('path'.$image)
+    }
 }

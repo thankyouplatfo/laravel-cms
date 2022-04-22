@@ -15,6 +15,8 @@ class CategoryFactory extends Factory
     {
         return [
             //
+            'title' => $this->faker->realText(25),
+            'slug'  => $this->faker->slug(2),
         ];
     }
 }

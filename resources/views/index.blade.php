@@ -1,22 +1,30 @@
 @extends('layouts.app')
 @section('content')
-<div class="col-lg-8 p-1">
-    <div class="container-fluid bg-white">
-        <h2 class="display-2">المنشورات</h2>
-        <p>
-            Eu est cupidatat officia Lorem sint labore amet. Dolore sit et pariatur Lorem dolor culpa
-            enim
-            ipsum deserunt eu adipisicing mollit. Ea minim proident veniam eiusmod.
-
-            Sint aute commodo reprehenderit qui ut culpa consectetur. Fugiat id reprehenderit pariatur
-            consequat anim reprehenderit reprehenderit. Ipsum non nulla velit sit aute. Duis cupidatat
-            amet
-            duis labore ipsum incididunt sit consequat amet quis fugiat enim ullamco culpa. Culpa
-            adipisicing ipsum commodo amet est excepteur ut. Reprehenderit occaecat incididunt Lorem eu
-            laborum tempor sunt magna consectetur enim ad. Nulla culpa nulla nisi velit nostrud ea velit
-            nostrud pariatur cupidatat mollit tempor veniam.
-        </p>
+    <div class="col-md-8 p-1">
+        <div class="container-fluid bg-white pr-2">
+            <h2 class="display-2">المنشورات</h2>
+            @forelse ($posts as $p)
+                <div class="card mb-4">
+                    <img src="{{ $p->image_path }}" class="card-img-top">
+                    <div class="card-body">
+                        <h3 class="card-title">{{ $p->title }}</h3>
+                        <p class="card-text">{{ Str::limit($p->body, 100, '...') }}</p>
+                        <a href="{{ route('post.show',$p->id) }}" id="" class="btn btn-primary" href="{{ $p->id }}" role="button">المزيد</a>
+                    </div>
+                    <div class="card-footer text-muted">
+                        {{ $p->created_at->difFforHumans() }} - بواسطة
+                        <a href=" ">{{ $p->user->name }}</a>
+                    </div>
+                </div>
+            @empty
+                @include('alerts.empty')
+            @endforelse
+            <div class="py-3">
+                <ul class="pagination justify-content-center">
+                    {{ $posts->links() }}
+                </ul>
+            </div>
+        </div>
     </div>
-</div>
-@include('partials.sidebar')
+    @include('partials.sidebar')
 @endsection

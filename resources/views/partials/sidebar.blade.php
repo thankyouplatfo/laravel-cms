@@ -5,9 +5,9 @@
         </div>
         <div class="card-body">
             <ul class="nav flex-column"> 
-                @foreach ($categories as $category)
+                @foreach ($categories as $cat)
                 <li class="nav-item">
-                    <a href="#" class="nav-link">{{ $category->title }}</a>
+                    <a href="/{{ $cat->id }}/{{ $cat->slug }}" class="nav-link">{{ $cat->title }}</a>
                 </li>
                 @endforeach
             </ul>
