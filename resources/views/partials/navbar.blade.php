@@ -22,11 +22,13 @@
             </div>
         </li>
     </ul>
-    <form action="POST" action="{{ route('search') }}">
+    <form method="POST" action="{{ route('search') }}">
+        @csrf
         <div class="input-group">
-            <button class="fa-solid fa-magnifying-glass input-group-text fs-5 rounded-0  rounded-end"
+           
+            <input type="text" class="form-control rounded-0 rounded-end" name="keyword" placeholder="بحث">
+            <button class="fa-solid fa-magnifying-glass input-group-text fs-5 rounded-0  rounded-start"
                 type="submit"></button>
-            <input type="text" class="form-control rounded-0 rounded-start">
         </div>
     </form>
     <!-- Right Side Of Navbar -->

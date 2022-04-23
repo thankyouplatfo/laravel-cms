@@ -3,14 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
-use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
-use App\Models\Category;
-use GuzzleHttp\Psr7\Request;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
     protected $post;
+    //        
     public function __construct(Post $post)
     {
         $this->post = $post;
@@ -26,8 +26,9 @@ class PostController extends Controller
         //$data = $this->post::latest()->get();
         //$data = $this->post::with('user:id,name')->latest()->paginate(15);
         $data = $this->post::with('user:id,name')->latest()->approved()->paginate(15);
+
         //
-        return view('index',[
+        return view('index', [
             'posts' => $data,
         ]);
     }
@@ -40,6 +41,7 @@ class PostController extends Controller
     public function create()
     {
         //
+        return view('post.create');
     }
 
     /**
@@ -48,9 +50,15 @@ class PostController extends Controller
      * @param  \App\Http\Requests\StorePostRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StorePostRequest $request)
+    public function store(Request $request)
     {
         //
+        $request->user()->posts()->create($request->all() + [
+            //'slug' => Str::slug($request->title),
+            //'image_path' => $request->store('images/post/caption'),
+        ]);
+        //
+        return back()->with('msg', trans('alerts.success') . $request->id);
     }
 
     /**
@@ -64,7 +72,7 @@ class PostController extends Controller
         //
         $p = $this->post::findOrFail($id);
         //
-        return view('post.show',compact('p'));
+        return view('post.show', compact('p'));
     }
 
     /**
@@ -106,13 +114,14 @@ class PostController extends Controller
         //
         $posts = $this->post::with('user:id,name')->whereCategorieId($id)->approved()->paginate(15);
         //
-        return view('index',compact('posts'));
-
+        return view('index', compact('posts'));
     }
     //
     public function search(Request $r)
     {
         # code...
-        $r =    $this->post->where('body','LIKE','%',$r->keyWords,'%')->with('user:id,name')->approved()->paginate(15);
+        $posts = $this->post->where('body', 'LIKE', '%' . $r->keyword . '%')->with('user:id,name')->approved()->paginate(15);
+        //
+        return view('index', compact('posts'));
     }
 }

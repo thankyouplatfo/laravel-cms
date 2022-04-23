@@ -11,6 +11,7 @@ class CreatePostsTable extends Migration
      *
      * @return void
      */
+
     public function up()
     {
         Schema::create('posts', function (Blueprint $table) {
@@ -18,7 +19,7 @@ class CreatePostsTable extends Migration
             $table->string('title');
             $table->string('slug')->unique();
             $table->text('body');
-            $table->string('image_path');
+            $table->string('image_path')/**->default('https://via.placeholder.com/480x150')*/;
             $table->boolean('approved')->default(false);
             $table->foreignId('user_id')->references('id')->on('users')->cascadeOnDelete('cascade');            
             $table->foreignId('categorie_id')->references('id')->on('categories')->cascadeOnDelete('cascade');            

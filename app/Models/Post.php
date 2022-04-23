@@ -1,13 +1,24 @@
 <?php
 
 namespace App\Models;
-
+use App\Helpers\Slug;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
     use HasFactory;
+    //
+    protected $fillable =
+    [
+        'title',
+        'slug',
+        'body',
+        'image_path',
+        'approved',
+        'user_id',
+        'categorie_id',
+    ];
     //
     public function user()
     {
@@ -33,9 +44,18 @@ class Post extends Model
         return $q->whereApproved(true);
     }
     //
-    public function getImagePathAtteribute($image)
+    public function getImagepathAttribute($image)
     {
         # code...
-        //return asset('path'.$image)
+        return asset('storage/images/posts/'.$image);
+    }
+    //
+    public function setTitleAttribute($val)
+    {
+        # code...
+        $this->attributes['title'] = $val;
+        //
+        $this->attributes['slug'] = Slug::uniqueSlug($val,'posts');
+
     }
 }
