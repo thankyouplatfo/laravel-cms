@@ -6,14 +6,17 @@ use App\Models\Post;
 use App\Http\Requests\UpdatePostRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Faker\Generator as Faker;
 
 class PostController extends Controller
 {
     protected $post;
+    protected $faker;
     //        
-    public function __construct(Post $post)
+    public function __construct(Post $post, Faker $faker)
     {
         $this->post = $post;
+        $this->faker = $faker;
     }
     /**
      * Display a listing of the resource.
@@ -52,11 +55,17 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        $data = $request->all();
         //
-        $request->user()->posts()->create($request->all() + [
-            //'slug' => Str::slug($request->title),
-            //'image_path' => $request->store('images/post/caption'),
-        ]);
+        if ($request->hasFile('image_path')) {
+            # code...
+            $image_path = request('image_path')->store('images/post');
+            $data['image_path'] = $image_path;
+        } else {
+            $data['image_path'] = $this->faker->imageUrl;
+        }
+        //
+        $request->user()->posts()->create($data);
         //
         return back()->with('msg', trans('alerts.success') . $request->id);
     }
@@ -81,9 +90,12 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function edit(Post $post)
+    public function edit($id)
     {
         //
+        $p = $this->post->find($id);
+        //
+        return view('post.edit', compact('p'));
     }
 
     /**
@@ -93,9 +105,21 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatePostRequest $request, Post $post)
-    {
+    public function update($id, Request $request)
+    {   $data = $request->all();
         //
+        if ($request->hasFile('image_path')) {
+            # code...
+            $image_path = request('image_path')->store('images/post');
+            $data['image_path'] = $image_path;
+            $request->user()->posts()->find($id)->update($data);
+
+        }else {
+            # code...
+            $request->user()->posts()->find($id)->update($data);
+        }
+        //
+        return back()->with('msg', trans('alerts.updateSuccess') . $request->id);
     }
 
     /**

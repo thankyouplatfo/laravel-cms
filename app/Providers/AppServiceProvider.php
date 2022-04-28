@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Http\ViewComposers\CategoryComposer;
+use App\Http\ViewComposers\CommentComposer;
 use App\Http\ViewComposers\RoleComposer;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
@@ -31,6 +32,8 @@ class AppServiceProvider extends ServiceProvider
         view::composer(['partials.sidebar', 'lists.categories'], CategoryComposer::class);
         //
         view::composer('lists.roles', RoleComposer::class);
+        //
+        view::composer('partials.sidebar',CommentComposer::class);
         //
         Paginator::useBootstrap();
     }

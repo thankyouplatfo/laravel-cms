@@ -5,9 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\Comment;
 use App\Http\Requests\StoreCommentRequest;
 use App\Http\Requests\UpdateCommentRequest;
+use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
+    protected $comment;
+    //
+    public function __construct(Comment $comment)
+    {
+        $this->comment = $comment;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -37,6 +44,9 @@ class CommentController extends Controller
     public function store(StoreCommentRequest $request)
     {
         //
+        $request->user()->comments()->create($request->all());
+        //
+        return back()->with('msg', trans('alerts.successComment'));
     }
 
     /**

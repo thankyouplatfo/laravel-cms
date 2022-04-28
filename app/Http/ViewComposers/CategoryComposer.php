@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\ViewComposers;
 
 use App\Models\Category;
@@ -16,6 +17,6 @@ class CategoryComposer
     public function compose(View $view)
     {
         # code...
-        return $view->with('categories',Category::all());
+        return $view->with('categories', Category::all());
     }
 }

@@ -23,7 +23,7 @@ class PostFactory extends Factory
             'title' => $this->faker->realText(25),
             'slug'  => $slug,
             'body'  => $this->faker->realText(550),
-            'image_path' => $this->faker->imageUrl(480, 150, 'LARAVEL CMS'),
+            'image_path' => $this->faker->imageUrl(480,175,"car",true,"LARAVEL CMS",000000),
             'approved' => $this->faker->numberBetween(0, 1),
             'user_id' => $this->faker->numberBetween(1, 10),
             'categorie_id' => $this->faker->numberBetween(1, 9),

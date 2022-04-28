@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -26,3 +27,5 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('{id}/{slug}',[PostController::class,'getByCat'])->name('category');
 //
 Route::post('/search',[PostController::class,'search'])->name('search');
+//
+Route::resource('comment',CommentController::class);

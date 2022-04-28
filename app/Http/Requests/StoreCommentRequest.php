@@ -13,7 +13,7 @@ class StoreCommentRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,6 +25,7 @@ class StoreCommentRequest extends FormRequest
     {
         return [
             //
+            'body' => 'required|min:25|max:255'
         ];
     }
 }
