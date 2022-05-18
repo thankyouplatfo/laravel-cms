@@ -1,7 +1,17 @@
 <?php
 
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\PageController;
+use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\Admin\PostController as AdminPostController;
+use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\ProfileController;
+use App\Models\Permission;
+use App\Models\Profile;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -16,7 +26,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/',[PostController::class,'index']);
+Route::get('/', [PostController::class, 'index']);
 //
 Route::resource('post', PostController::class)->except('index');
 //
@@ -24,8 +34,41 @@ Auth::routes();
 //
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 //
-Route::get('{id}/{slug}',[PostController::class,'getByCat'])->name('category');
+Route::get('{id}/{slug}', [PostController::class, 'getByCat'])->name('category')->where('id', '[0-9]+');
 //
-Route::post('/search',[PostController::class,'search'])->name('search');
+Route::post('/search', [PostController::class, 'search'])->name('search');
 //
-Route::resource('comment',CommentController::class);
+Route::resource('comment', CommentController::class);
+//
+Route::get('{id}', [ProfileController::class, 'getByUser'])->where('id', '[0-9]+');
+//
+Route::get('settings', [ProfileController::class, 'edit'])->name('settings');
+//
+Route::post('settings', [ProfileController::class, 'update'])->name('settings');
+//
+/*
+Route::get('/admin/index',function(){
+    return view('admin.index');
+}); 
+ */
+//
+Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+//
+//Route::get('dashboard',[DashboardController::class,'index']);
+
+Route::group(['prefix' => 'admin'], function () {
+    //
+    Route::resource('posts', AdminPostController::class);
+    //
+    Route::resource('categories', CategoryController::class);
+    //
+    Route::resource('users', UserController::class);
+    //
+    Route::get('permissions', [PermissionController::class, 'index'])->name('permissions');
+    //
+    Route::post('permissions', [RoleController::class, 'store'])->name('permissions');
+});
+//
+Route::post('permission_byRole',[RoleController::class,'permissionByRole'])->name('permission_byRole');
+//
+Route::resource('page',PageController::class);

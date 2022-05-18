@@ -17,13 +17,16 @@
         <div class="card-header">
             <h2>{{ __('site.Latest_comments') }}</h2>
         </div>
-        <div class="card-body">
+        <div class="card-body px-auto text-center">
             <ul class="list-group">
                 @foreach ($return_latest_comments as $r_comment)
-                    <li class="list-group-item">
-                        <img src="imags/profile/avatar/avatar.png" alt="" width="120" height="120" class="circle">
-                        <a href="{{ route('post.show',$r_comment->post->id) }} #commentsContainer">{{ Str::limit($r_comment->body,25,'...') }}</a>
-                    </li>
+                    @if ($r_comment->post->approved == 1)
+                        <li class=" list-group-item">
+                            <img src="{{ Str::contains($r_comment->post->image_path, ['https']) ? $r_comment->post->image_path : asset('storage/' . $r_comment->post->image_path) }}" alt="" width="120" height="120">
+                            <a
+                                href="{{ route('post.show', $r_comment->post->id) }} #commentsContainer">{{ Str::limit($r_comment->post->body, 25, '...') }}</a>
+                        </li>
+                    @endif
                 @endforeach
             </ul>
         </div>

@@ -25,6 +25,7 @@ class UpdateProfileRequest extends FormRequest
     {
         return [
             //
+            
         ];
     }
 }

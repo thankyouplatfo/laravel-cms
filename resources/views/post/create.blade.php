@@ -8,7 +8,7 @@
         <form action="{{ route('post.store') }}" method="post" enctype="multipart/form-data">
             @csrf
             <p class="form-group">
-                <select class="categorie_id form-select" name="categorie_id" id="categorie_id" dir="rtl">
+                <select class="category_id form-select" name="category_id" id="category_id" dir="rtl">
                     @include('lists.categories')
                 </select>
             </p>

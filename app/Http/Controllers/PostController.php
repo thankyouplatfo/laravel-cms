@@ -136,7 +136,7 @@ class PostController extends Controller
     public function getByCat($id)
     {
         //
-        $posts = $this->post::with('user:id,name')->whereCategorieId($id)->approved()->paginate(15);
+        $posts = $this->post::with('user:id,name')->whereCategoryId($id)->approved()->paginate(15);
         //
         return view('index', compact('posts'));
     }

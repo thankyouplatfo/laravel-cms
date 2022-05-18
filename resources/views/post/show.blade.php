@@ -29,7 +29,7 @@
                     </div>
                 @endforeach
             </div>
-            <div class="row form-group ">
+            <div class="row form-group">
                 <h3 class="display-3">التعليقات</h3>
                 @if (Session::has('msg'))
                     <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('msg') }}</p>

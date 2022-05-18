@@ -4,6 +4,9 @@
 <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#mynavbar">
     <span class="navbar-toggler-icon"></span>
 </button>
+<button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#exampleAccordion">
+    <span class="navbar-toggler-icon"></span>
+</button>
 <div class="collapse navbar-collapse" id="mynavbar">
     <ul class=" navbar-nav me-auto">
         <li class="nav-item">
@@ -15,9 +18,12 @@
                         class="fa-solid fa-file"></i> {{ __('site.Pages') }} <i
                         class="fa-solid fa-caret-down mr-5"></i></button>
                 <ul class="dropdown-menu">
-                    <li><a href="#" class="dropdown-item">{{ __('site.Dashboard') }}</a></li>
-                    <li><a href="#" class="dropdown-item">{{ __('site.Profile') }}</a></li>
-                    <li><a href="#" class="dropdown-item">{{ __('site.Settings') }}</a></li>
+                    @foreach ($pages as $page)
+                        <li>
+                            <a href="{{ route('page.show', $page->slug) }}"
+                                class="dropdown-item">{{ $page->title }}</a>
+                        </li>
+                    @endforeach
                 </ul>
             </div>
         </li>
@@ -25,7 +31,7 @@
     <form method="POST" action="{{ route('search') }}">
         @csrf
         <div class="input-group">
-           
+
             <input type="text" class="form-control rounded-0 rounded-end" name="keyword" placeholder="بحث">
             <button class="fa-solid fa-magnifying-glass input-group-text fs-5 rounded-0  rounded-start"
                 type="submit"></button>
@@ -48,20 +54,27 @@
             @endif
         @else
             <li class="nav-item dropdown">
-                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false" v-pre>
                     {{ Auth::user()->name }}
                 </a>
 
                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="{{ route('logout') }}"
-                        onclick="event.preventDefault();
-                                                                 document.getElementById('logout-form').submit();">
-                        {{ __('site.Logout') }}
+                    <a class="dropdown-item" style="text-align: right" href="/{{ Auth::user()->id }}">
+                        <i class="fa-solid fa-gauge"></i> {{ __('site.Dashboard') }}
                     </a>
-
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                        class="d-none">
+                    <a class="dropdown-item" style="text-align: right" href="/{{ Auth::user()->id }}">
+                        <i class="fa-solid fa-user"></i> {{ __('site.Profile') }}
+                    </a>
+                    <a class="dropdown-item" style="text-align: right" href="{{ route('settings') }}">
+                        <i class="fa-solid fa-gear"></i> {{ __('site.Settings') }}
+                    </a>
+                    <hr>
+                    <a class="dropdown-item" style="text-align: right" href="{{ route('logout') }}"
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        <i class="fa-solid fa-right-from-bracket"></i> {{ __('site.Logout') }}
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                         @csrf
                     </form>
                 </div>

@@ -15,6 +15,9 @@ class RoleFactory extends Factory
     {
         return [
             //
+            'role' => 'مدير',
+            'role' => 'مستخدم فعال',
+            'role' => 'مستخدم جديد',
         ];
     }
 }

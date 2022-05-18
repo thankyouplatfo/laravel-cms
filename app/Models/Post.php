@@ -20,7 +20,7 @@ class Post extends Model
         'image_path',
         'approved',
         'user_id',
-        'categorie_id',
+        'category_id',
     ];
     //
     public function user()
@@ -51,7 +51,7 @@ class Post extends Model
         //{
         //    # code...
         //    //return asset('storage/images/posts/' . $image);
-        //    return Str::contains($image, ['http', 'https']) ? $image : asset('storage/image/posts/' . $image);
+        //    return Str::contains($image, ['https']) ? $image : asset('storage/image/posts/' . $image);
         //}
     //
     //public function setImagepathAttribute($image_path)

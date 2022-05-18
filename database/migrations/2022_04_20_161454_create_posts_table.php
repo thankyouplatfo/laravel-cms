@@ -22,7 +22,7 @@ class CreatePostsTable extends Migration
             $table->string('image_path')/**->default('https://via.placeholder.com/480x150')*/;
             $table->boolean('approved')->default(false);
             $table->foreignId('user_id')->references('id')->on('users')->cascadeOnDelete('cascade');            
-            $table->foreignId('categorie_id')->references('id')->on('categories')->cascadeOnDelete('cascade');            
+            $table->foreignId('category_id')->references('id')->on('categories')->cascadeOnDelete('cascade');            
             $table->timestamps();
         });
     }

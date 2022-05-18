@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="rtl">
 
 <head>
@@ -9,10 +9,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
-
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
+    
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Changa&family=Norican&family=Tajawal:wght@200;500&display=swap"
         rel="stylesheet">
@@ -32,16 +29,16 @@
 <body>
     <div class="app">
         <nav class="navbar navbar-expand-sm bg-dark navbar-dark d-flex">
-            <div class="container">
+            <div class="container" dir="rtl">
                 @include('partials.navbar')
             </div>
-        </nav>   
+        </nav>
 
         <main class="py-4">
             <div class="container">
                 <div class="row g-3 text-right">
                     @yield('content')
-                    
+
                 </div>
             </div>
         </main>
@@ -52,6 +49,9 @@
         </footer>
 
     </div>
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
+    @yield('script')
 </body>
 
 </html>

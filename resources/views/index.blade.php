@@ -5,7 +5,7 @@
             <h2 class="display-2">المنشورات</h2>
             @forelse ($posts as $p)
                 <div class="card mb-4">
-                    <img src="{{ Str::contains($p->image_path, ['http', 'https']) ? $p->image_path : asset('storage/' . $p->image_path) }}"
+                    <img src="{{ Str::contains($p->image_path, ['https']) ? $p->image_path : asset('storage/' . $p->image_path) }}"
                         class="card-img-top" height="225">
                     <div class="card-body">
                         <h3 class="card-title">{{ $p->title }}</h3>
@@ -15,7 +15,7 @@
                     </div>
                     <div class="card-footer text-muted">
                         {{ $p->created_at->difFforHumans() }} - بواسطة
-                        <a href=" ">{{ $p->user->name }}</a>
+                        <a href="/{{ $p->user->id }}">{{ $p->user->name }}</a>
                     </div>
                 </div>
             @empty

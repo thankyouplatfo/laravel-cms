@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <div class="col-md-8 bg-white" dir="rtl">
-        <h2 class="display-2">أضف موضوعا جديدا</h2>
+        <h2 class="display-2">تحرير المنشور</h2>
         @if (Session::has('msg'))
             <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('msg') }}</p>
         @endif
@@ -9,7 +9,7 @@
             @csrf
             @method('PATCH')
             <p class="form-group">
-                <select class="categorie_id form-select" name="categorie_id" id="categorie_id" dir="rtl">
+                <select class="category_id form-select" name="category_id" id="category_id" dir="rtl">
                     @include('lists.categories')
                 </select>
             </p>
@@ -22,8 +22,8 @@
                     placeholder="أدخل محتوى المنشور">{{ $p->body }}</textarea>
             </p>
             <p class="form-group">
-                <label for="image_path d-block my-3">اخنر صورة تتعلق بالموضوع</label>
-                <img src="{{ Str::contains($p->image_path, ['http', 'https']) ? $p->image_path : asset('storage/' . $p->image_path) }}"
+                <label for="image_path">اخنر صورة تتعلق بالموضوع</label>
+                <img src="{{ Str::contains($p->image_path, ['https']) ? $p->image_path : asset('storage/' . $p->image_path) }}"
                     class="form-control d-block my-3 mx-auth w-25 h-25" style="height: 175px">
                 <input class="image_path form-control" name="image_path" id="image_path" type="file">
             </p>
