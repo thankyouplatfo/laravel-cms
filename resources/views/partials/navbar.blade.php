@@ -60,14 +60,20 @@
                 </a>
 
                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" style="text-align: right" href="/{{ Auth::user()->id }}">
-                        <i class="fa-solid fa-gauge"></i> {{ __('site.Dashboard') }}
-                    </a>
+                    @admin
+                        <a class="dropdown-item" style="text-align: right" href="{{ route('dashboard') }}">
+                            <i class="fa-solid fa-gauge"></i> {{ __('site.Dashboard') }}
+                        </a>
+                    @endadmin
                     <a class="dropdown-item" style="text-align: right" href="/{{ Auth::user()->id }}">
                         <i class="fa-solid fa-user"></i> {{ __('site.Profile') }}
                     </a>
                     <a class="dropdown-item" style="text-align: right" href="{{ route('settings') }}">
                         <i class="fa-solid fa-gear"></i> {{ __('site.Settings') }}
+                    </a>
+                    <hr>
+                    <a class="dropdown-item" style="text-align: right" href="{{ route('post.create') }}">
+                        <i class="fa-solid fa-plus"></i> {{ __('site.post create') }}
                     </a>
                     <hr>
                     <a class="dropdown-item" style="text-align: right" href="{{ route('logout') }}"

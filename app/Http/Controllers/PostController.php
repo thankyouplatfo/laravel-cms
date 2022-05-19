@@ -128,9 +128,12 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function destroy(Request $request,$id)
     {
         //
+        $request->user()->posts()->find($id)->delete();
+        //
+        return back()->with('msg',trans('alerts.msg_d'));
     }
     //
     public function getByCat($id)

@@ -21,11 +21,11 @@ class RoleSeeder extends Seeder
         ]);
         //
         DB::table('roles')->insert([
-            'role' => 'مستخدم فعال'
+            'role' => 'مستخدم جديد'
         ]);
         //
         DB::table('roles')->insert([
-            'role' => 'مستخدم جديد'
+            'role' => 'مستخدم فعال'
         ]);
     }
 }

@@ -18,9 +18,9 @@ class PostController extends Controller
     public function index()
     {
         # code...
-        $AllPosts = $this->post::with('user', 'category.posts')->paginate(15);
+        $AllPosts = $this->post::with('user', 'category.posts')->paginate(10);
         //
-        return view('admin.posts.all', compact('AllPosts'));
+        return view('admin.posts.index', compact('AllPosts'));
     }
     //
     public function edit($id)

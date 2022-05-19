@@ -28,9 +28,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PostController::class, 'index']);
 //
-Route::resource('post', PostController::class)->except('index');
+Route::resource('post', PostController::class)->except('index')->middleware('verified');
 //
-Auth::routes();
+Auth::routes(['verify' => true]);
 //
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 //
@@ -52,11 +52,11 @@ Route::get('/admin/index',function(){
 }); 
  */
 //
-Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('Admin');
 //
 //Route::get('dashboard',[DashboardController::class,'index']);
 
-Route::group(['prefix' => 'admin'], function () {
+Route::group(['prefix' => 'admin', 'middleware' => 'Admin'], function () {
     //
     Route::resource('posts', AdminPostController::class);
     //
@@ -69,6 +69,6 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('permissions', [RoleController::class, 'store'])->name('permissions');
 });
 //
-Route::post('permission_byRole',[RoleController::class,'permissionByRole'])->name('permission_byRole');
+Route::post('permission_byRole', [RoleController::class, 'permissionByRole'])->name('permission_byRole')->middleware('Admin');
 //
-Route::resource('page',PageController::class);
+Route::resource('page', PageController::class)->middleware('Admin');

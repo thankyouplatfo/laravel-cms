@@ -64,7 +64,7 @@
                 <span class="w3-text-white">المنشورات</span>
             </a>
         </li>
-        <li class="nav-item" data-bs-toggle="tooltip" title="الأدوار">
+        <li class="nav-item" data-bs-toggle="tooltip" title="الأدوار" hidden>
             <a class="nav-link nav-link-collapse collapsed" href="#collapseRoles"
                 data-bs-parent="#exampleAccordion">
                 <i class="fa fa-fw fa-wrench"></i>

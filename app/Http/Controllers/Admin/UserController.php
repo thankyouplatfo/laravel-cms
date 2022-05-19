@@ -39,8 +39,9 @@ class UserController extends Controller
      */
     public function create()
     {
+        $roles = $this->user->with('role');
         //
-        return view('admin.users.create');
+        return view('admin.users.create', compact('roles'));
     }
 
     /**

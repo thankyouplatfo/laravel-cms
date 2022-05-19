@@ -15,20 +15,20 @@
                 <input type="text" class="w3-input w3-border w3-round name" name="name" id="name"
                     value="{{ old('name') }}">
                 @error('name')
-                    <p class="w3-tag w3-red w3-round">
-                        {{ $message }}
-                    </p>
-                @enderror
+                <p class="w3-tag w3-red w3-round">
+                    {{ $message }}
+                </p>
+            @enderror
             </p>
             <p>
                 <label class="form-label w3-large" for="email">البريد الإلكتروني</label>
                 <input type="email" class="w3-input w3-border w3-round email" name="email" id="email"
                     value="{{ old('email') }}" dir="ltr">
                 @error('email')
-                    <p class="w3-tag w3-red w3-round">
-                        {{ $message }}
-                    </p>
-                @enderror
+                <p class="w3-tag w3-red w3-round">
+                    {{ $message }}
+                </p>
+            @enderror
             </p>
 
             <p>
@@ -36,22 +36,25 @@
                 <input type="password" class="w3-input w3-border w3-round password" name="password" id="password"
                     value="{{ old('password') }}" dir="ltr">
                 @error('password')
-                    <p class="w3-tag w3-red w3-round">
-                        {{ $message }}
-                    </p>
-                @enderror
+                <p class="w3-tag w3-red w3-round">
+                    {{ $message }}
+                </p>
+            @enderror
+            </p>
+            <p>
+                <label class="form-label w3-large" for="role_id">الصورة الشخصية</label>
+                <select class="w3-input w3-border w3-round role_id" name="role_id" id="role_id">
+                    @foreach ($roles as $role)
+                        <option value="{{ $role->id }}">{{ $role->role }}</option>
+                    @endforeach
+                </select>
+                @error('role_id')
+                <p class="w3-tag w3-red w3-round">
+                    {{ $message }}
+                </p>
+            @enderror
             </p>
             {{-- <p class="d-none">
-                <label class="form-label w3-large" for="avatar">الصورة الشخصية</label>
-                <input type="file" class="w3-input w3-border w3-round avatar" name="avatar" id="avatar"
-                    value="{{ old('avatar') }}">
-                @error('avatar')
-                    <p class="w3-tag w3-red w3-round">
-                        {{ $message }}
-                    </p>
-                @enderror
-            </p>
-            <p class="d-none">
                 <label class="form-label w3-large" for="website">الموقع الإلكتروني</label>
                 <input type="url" class="w3-input w3-border w3-round website" name="website" id="website"
                     value="{{ old('website') }}" dir="ltr">
